@@ -2,7 +2,7 @@ package ru.sbt.mipt.oop;
 
 import static ru.sbt.mipt.oop.SensorEventType.DOOR_CLOSED;
 
-public class HallDoorEventHandler implements EventProcessor {
+public class HallDoorEvenProcessor implements EventProcessor {
 
     @Override
     public void handleEvent(SmartHome smartHome, SensorEvent event) {

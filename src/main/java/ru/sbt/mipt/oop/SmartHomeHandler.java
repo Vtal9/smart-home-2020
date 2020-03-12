@@ -7,9 +7,8 @@ public class SmartHomeHandler {
 
    private List<EventProcessor> processors;
 
-   SmartHomeHandler(){
-       processors = Arrays.asList(
-               new DoorEventProcessor(), new LightEventProcessor(), new HallDoorEventHandler());
+   SmartHomeHandler(List<EventProcessor> processors){
+       this.processors = processors;
    }
 
     public void handle(SmartHome smartHome){
