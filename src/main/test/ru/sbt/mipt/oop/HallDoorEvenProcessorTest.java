@@ -19,22 +19,23 @@ public class HallDoorEvenProcessorTest {
         DoorEventProcessor doorProcessor = new DoorEventProcessor();
         doorProcessor.processEvent(smartHome, event);
 
-        for (Room room : smartHome.getRooms()) {
-            for (Light light : room.getLights()) {
+        smartHome.execute(homeComponent -> {
+            if (homeComponent instanceof Light) {
+                Light light = (Light) homeComponent;
                 assertFalse(light.isOn());
             }
-        }
+        });
     }
 
     @Test
     public void noHallDoorEvent() {
         SmartHome smartHome = SmartHomeReader.readSmartHome();
-        String objectId = "3";
-        SensorEvent event = new SensorEvent(LIGHT_ON, objectId);
+        String firstObjectId = "3";
+        SensorEvent event = new SensorEvent(LIGHT_ON, firstObjectId);
         LightEventProcessor lightProcessor = new LightEventProcessor();
         lightProcessor.processEvent(smartHome, event);
 
-        objectId = "3";
+        final String objectId = "3";
         event = new SensorEvent(DOOR_CLOSED, objectId);
         HallDoorEvenProcessor hallDoorProcessor = new HallDoorEvenProcessor();
         hallDoorProcessor.processEvent(smartHome, event);
@@ -42,12 +43,15 @@ public class HallDoorEvenProcessorTest {
         DoorEventProcessor doorProcessor = new DoorEventProcessor();
         doorProcessor.processEvent(smartHome, event);
 
-        for (Room room : smartHome.getRooms()) {
-            for (Light light : room.getLights()) {
+
+
+        smartHome.execute(homeComponent -> {
+            if (homeComponent instanceof Light) {
+                Light light = (Light) homeComponent;
                 if (light.getId().equals(objectId)) {
                     assertTrue(light.isOn());
                 }
             }
-        }
+        });
     }
 }

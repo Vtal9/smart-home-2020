@@ -13,24 +13,31 @@ public class SmartHomeTest {
         Room newRoom = new Room(Arrays.asList(new Light("1", true)),
                 Arrays.asList(new Door(true, "1")), "kitchen");
         smartHome.addRoom(newRoom);
-        smartHome.getRooms().forEach(room -> {
-            assertEquals(room, newRoom);
+        smartHome.execute(homeComponent -> {
+            if (homeComponent instanceof Room) {
+                Room room = (Room) homeComponent;
+                assertEquals(room, newRoom);
+            }
         });
     }
+
 
     @Test
     public void execute() {
         SmartHome smartHome = new SmartHome();
         Room newRoom = new Room(Arrays.asList(new Light("1", true)),
                 Arrays.asList(new Door(true, "1")), "kitchen");
-        smartHome.execute(homeComponent ->{
-            if(homeComponent instanceof SmartHome){
+        smartHome.execute(homeComponent -> {
+            if (homeComponent instanceof SmartHome) {
                 ((SmartHome) homeComponent).addRoom(newRoom);
             }
         });
 
-        smartHome.getRooms().forEach(room -> {
-            assertEquals(room, newRoom);
+        smartHome.execute(homeComponent -> {
+            if (homeComponent instanceof Room) {
+                Room room = (Room) homeComponent;
+                assertEquals(room, newRoom);
+            }
         });
     }
 }

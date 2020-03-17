@@ -1,6 +1,5 @@
 package ru.sbt.mipt.oop;
 
-import static org.junit.Assert.assertFalse;
 import static ru.sbt.mipt.oop.SensorEventType.DOOR_CLOSED;
 
 public class HallDoorEvenProcessor implements EventProcessor {
@@ -16,9 +15,12 @@ public class HallDoorEvenProcessor implements EventProcessor {
 
             Room room = (Room) homeComponent;
             if (room.getName().equals("hall")) {
-                room.getDoors().forEach(door -> {
-                    if (door.getId().equals(event.getObjectId())) {
-                        TurnOffAllLights(smartHome);
+                room.execute(hallComponent -> {
+                    if (hallComponent instanceof Door) {
+                        Door door = (Door) hallComponent;
+                        if (door.getId().equals((event.getObjectId()))) {
+                            TurnOffAllLights(smartHome);
+                        }
                     }
                 });
             }
@@ -27,10 +29,12 @@ public class HallDoorEvenProcessor implements EventProcessor {
     }
 
     private static void TurnOffAllLights(SmartHome smartHome) {
-        smartHome.getRooms().forEach(homeRoom -> homeRoom.getLights().forEach(light -> {
-            light.setOn(false);
-            SensorCommand command = new SensorCommand(CommandType.LIGHT_OFF, light.getId());
-            CommandSender.sendCommand(command);
-        }));
+        smartHome.execute(homeComponent -> {
+            if (homeComponent instanceof Light) {
+                Light light = (Light) homeComponent;
+                light.setOn(false);
+                System.out.println("Light " + light.getId() + " was turned off.");
+            }
+        });
     }
 }

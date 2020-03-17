@@ -13,13 +13,9 @@ public class DoorEventProcessor implements EventProcessor {
                 if (homeComponent instanceof Door) {
                     Door door = (Door) homeComponent;
                     if (door.getId().equals(event.getObjectId())) {
-                        if (event.getType() == DOOR_OPEN) {
-                            door.setOpen(true);
-                            System.out.println("Door " + door.getId() + " was opened.");
-                        } else {
-                            door.setOpen(false);
-                            System.out.println("Door " + door.getId() + " was closed.");
-                        }
+                        door.setOpen(event.getType() == DOOR_OPEN);
+                        System.out.println("Door" + door.getId() +
+                                (event.getType() == DOOR_OPEN ? " was opened" : " was closed"));
                     }
                 }
 

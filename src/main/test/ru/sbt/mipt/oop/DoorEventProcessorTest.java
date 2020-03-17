@@ -17,13 +17,15 @@ public class DoorEventProcessorTest {
         DoorEventProcessor processor = new DoorEventProcessor();
         processor.processEvent(smartHome, event);
 
-        for (Room room : smartHome.getRooms()) {
-            for (Door door : room.getDoors()) {
+
+        smartHome.execute(homeComponent -> {
+            if (homeComponent instanceof Door) {
+                Door door = (Door) homeComponent;
                 if (door.getId().equals(objectId)) {
                     assertFalse(door.isOpen());
                 }
             }
-        }
+        });
     }
 
 
@@ -39,12 +41,13 @@ public class DoorEventProcessorTest {
         event = new SensorEvent(DOOR_OPEN, objectId);
         processor.processEvent(smartHome, event);
 
-        for (Room room : smartHome.getRooms()) {
-            for (Door door : room.getDoors()) {
+        smartHome.execute(homeComponent -> {
+            if (homeComponent instanceof Door) {
+                Door door = (Door) homeComponent;
                 if (door.getId().equals(objectId)) {
                     assertTrue(door.isOpen());
                 }
             }
-        }
+        });
     }
 }

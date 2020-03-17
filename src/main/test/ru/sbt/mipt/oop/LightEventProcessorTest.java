@@ -14,13 +14,14 @@ public class LightEventProcessorTest {
         SensorEvent event = new SensorEvent(LIGHT_OFF, objectId);
         LightEventProcessor processor = new LightEventProcessor();
         processor.processEvent(smartHome, event);
-        for (Room room : smartHome.getRooms()) {
-            for (Light light : room.getLights()) {
+        smartHome.execute(homeComponent ->{
+            if(homeComponent instanceof Light){
+                Light light = (Light) homeComponent;
                 if (light.getId().equals(objectId)) {
                     assertFalse(light.isOn());
                 }
             }
-        }
+        });
     }
 
     @Test
@@ -33,12 +34,13 @@ public class LightEventProcessorTest {
         event = new SensorEvent(LIGHT_ON, objectId);
         processor.processEvent(smartHome, event);
 
-        for (Room room : smartHome.getRooms()) {
-            for (Light light : room.getLights()) {
+        smartHome.execute(homeComponent ->{
+            if(homeComponent instanceof Light){
+                Light light = (Light) homeComponent;
                 if (light.getId().equals(objectId)) {
                     assertTrue(light.isOn());
                 }
             }
-        }
+        });
     }
 }
