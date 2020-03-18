@@ -5,35 +5,36 @@ import static ru.sbt.mipt.oop.SensorEventType.DOOR_CLOSED;
 public class HallDoorEvenProcessor implements EventProcessor {
 
     @Override
-    public void handleEvent(SmartHome smartHome, SensorEvent event) {
+    public void processEvent(SmartHome smartHome, SensorEvent event) {
         // если мы получили событие о закрытие двери в холле - это значит, что была закрыта входная дверь.
         // в этом случае мы хотим автоматически выключить свет во всем доме (это же умный дом!)
-        if (event.getType() == DOOR_CLOSED && isHall(smartHome, event)) {
-            TurnOffAllLights(smartHome);
-        }
-    }
-
-    private static boolean isHall(SmartHome smartHome, SensorEvent event) {
-        for (Room room : smartHome.getRooms()) {
-            if (room.getName().equals("hall")) {
-                for (Door door : room.getDoors()) {
-                    if (door.getId().equals(event.getObjectId())) {
-                        return true;
-                    }
-                }
-                return false;
+        smartHome.execute(homeComponent -> {
+            if (!(event.getType() == DOOR_CLOSED && homeComponent instanceof Room)) {
+                return;
             }
-        }
-        return false;
+
+            Room room = (Room) homeComponent;
+            if (room.getName().equals("hall")) {
+                room.execute(hallComponent -> {
+                    if (hallComponent instanceof Door) {
+                        Door door = (Door) hallComponent;
+                        if (door.getId().equals((event.getObjectId()))) {
+                            TurnOffAllLights(smartHome);
+                        }
+                    }
+                });
+            }
+
+        });
     }
 
     private static void TurnOffAllLights(SmartHome smartHome) {
-        for (Room homeRoom : smartHome.getRooms()) {
-            for (Light light : homeRoom.getLights()) {
+        smartHome.execute(homeComponent -> {
+            if (homeComponent instanceof Light) {
+                Light light = (Light) homeComponent;
                 light.setOn(false);
-                SensorCommand command = new SensorCommand(CommandType.LIGHT_OFF, light.getId());
-                CommandSender.sendCommand(command);
+                System.out.println("Light " + light.getId() + " was turned off.");
             }
-        }
+        });
     }
 }
