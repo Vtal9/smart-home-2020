@@ -1,24 +1,21 @@
 package ru.sbt.mipt.oop;
 
-public class ActiveState extends State{
+public class ActiveState implements State {
+
+    protected Alarm alarm;
 
     public ActiveState(Alarm alarm) {
-        super(alarm);
+        this.alarm = alarm;
     }
 
     @Override
-    public void activate(String code) {
+    public void activate() {
         //do nothing
     }
 
     @Override
-    public void deactivate(String code) {
-        if(code.equals(alarm.getCode())){
-            alarm.changeState(new InactiveState(alarm));
-        }
-        else{
-            activateAlert();
-        }
+    public void deactivate() {
+        alarm.changeState(new InactiveState(alarm));
     }
 
     @Override

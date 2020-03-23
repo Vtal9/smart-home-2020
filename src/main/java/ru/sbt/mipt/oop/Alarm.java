@@ -1,11 +1,6 @@
 package ru.sbt.mipt.oop;
 
 public class Alarm  implements  Actionable{
-    private String code;
-
-    protected String getCode(){
-        return code;
-    }
 
     private State state;
 
@@ -22,16 +17,12 @@ public class Alarm  implements  Actionable{
     }
 
 
-    public void activate(String code){
-        state.activate(code);
+    public void activate(){
+        state.activate();
     }
 
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-    public void deactivate(String code){
-        state.deactivate(code);
+    public void deactivate(){
+        state.deactivate();
     }
 
     public void activateAlert(){

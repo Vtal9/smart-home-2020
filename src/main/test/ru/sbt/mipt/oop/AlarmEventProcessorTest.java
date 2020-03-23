@@ -2,6 +2,8 @@ package ru.sbt.mipt.oop;
 
 import org.junit.Test;
 
+import java.util.Arrays;
+
 import static org.junit.Assert.*;
 import static ru.sbt.mipt.oop.SensorEventType.ALARM_ACTIVATE;
 import static ru.sbt.mipt.oop.SensorEventType.ALARM_DEACTIVATE;
@@ -16,7 +18,7 @@ public class AlarmEventProcessorTest {
 
         SensorEvent event = new SensorEvent(ALARM_ACTIVATE, code);
         EventProcessor processor = new AlarmEventProcessor();
-        processor = new AlarmProcessEventDecorator(processor);
+        processor = new AlarmProcessEventDecorator(Arrays.asList(processor));
         processor.processEvent(smartHome, event);
 
 
@@ -36,7 +38,7 @@ public class AlarmEventProcessorTest {
         String code = "qwerty";
 
         EventProcessor processor = new AlarmEventProcessor();
-        processor = new AlarmProcessEventDecorator(processor);
+        processor = new AlarmProcessEventDecorator(Arrays.asList(processor));
 
         SensorEvent event = new SensorEvent(ALARM_ACTIVATE, code);
 
@@ -62,7 +64,7 @@ public class AlarmEventProcessorTest {
         String code = "qwerty";
 
         EventProcessor processor = new AlarmEventProcessor();
-        processor = new AlarmProcessEventDecorator(processor);
+        processor = new AlarmProcessEventDecorator(Arrays.asList(processor));
 
         SensorEvent event = new SensorEvent(ALARM_ACTIVATE, code);
 
