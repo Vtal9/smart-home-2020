@@ -3,7 +3,6 @@ package ru.sbt.mipt.oop;
 import static ru.sbt.mipt.oop.SensorEventType.*;
 
 public class AlarmEventProcessor implements EventProcessor {
-    private String code;
 
 
     @Override
@@ -13,12 +12,9 @@ public class AlarmEventProcessor implements EventProcessor {
                 if (homeComponent instanceof Alarm) {
                     Alarm alarm = (Alarm) homeComponent;
                     if (event.getType() == ALARM_ACTIVATE) {
-                        this.code = event.getObjectId();
-                        alarm.activate();
+                        alarm.activate(event.getObjectId());
                     } else {
-                        if (this.code.equals(event.getObjectId())) {
-                            alarm.deactivate();
-                        }
+                        alarm.deactivate(event.getObjectId());
                     }
                 }
             });

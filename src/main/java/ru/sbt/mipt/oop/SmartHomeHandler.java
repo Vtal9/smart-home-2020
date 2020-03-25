@@ -16,10 +16,9 @@ public class SmartHomeHandler {
         // начинаем цикл обработки событий
         while (event != null) {
             System.out.println("Got event: " + event);
-            AlarmProcessEventDecorator alarmProcessEventDecorator =
-                    new AlarmProcessEventDecorator(processors);
-            alarmProcessEventDecorator.processEvent(smartHome, event);
-
+            for (EventProcessor processor : processors) {
+                processor.processEvent(smartHome, event);
+            }
             event = eventCreator.getNextSensorEvent();
         }
     }

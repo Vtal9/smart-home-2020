@@ -1,4 +1,6 @@
-package ru.sbt.mipt.oop;
+package ru.sbt.mipt.oop.states;
+
+import ru.sbt.mipt.oop.Alarm;
 
 public class ActiveState implements State {
 
@@ -9,13 +11,18 @@ public class ActiveState implements State {
     }
 
     @Override
-    public void activate() {
+    public void activate(String code) {
         //do nothing
     }
 
     @Override
-    public void deactivate() {
-        alarm.changeState(new InactiveState(alarm));
+    public void deactivate(String code) {
+        if(alarm.codeIsCorrect(code)) {
+            alarm.changeState(new InactiveState(alarm));
+        }
+        else{
+            activateAlert();
+        }
     }
 
     @Override

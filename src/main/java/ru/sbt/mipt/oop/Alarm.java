@@ -1,31 +1,41 @@
 package ru.sbt.mipt.oop;
 
-public class Alarm  implements  Actionable{
+import ru.sbt.mipt.oop.states.InactiveState;
+import ru.sbt.mipt.oop.states.State;
+
+public class Alarm implements Actionable {
 
     private State state;
 
-    boolean isActive(){
+    private String code;
+
+    public boolean codeIsCorrect(String code) {
+        return this.code.equals(code);
+    }
+
+    boolean isActive() {
         return !(state instanceof InactiveState);
     }
 
-    public Alarm(){
+    public Alarm() {
         state = new InactiveState(this);
     }
 
-    public void changeState(State newState){
+    public void changeState(State newState) {
         state = newState;
     }
 
 
-    public void activate(){
-        state.activate();
+    public void activate(String code) {
+        this.code = code;
+        state.activate(code);
     }
 
-    public void deactivate(){
-        state.deactivate();
+    public void deactivate(String code) {
+        state.deactivate(code);
     }
 
-    public void activateAlert(){
+    public void activateAlert() {
         state.activateAlert();
     }
 

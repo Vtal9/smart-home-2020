@@ -19,6 +19,7 @@ public class AlarmProcessEventDecorator implements EventProcessor {
         } else {
             for (EventProcessor processor : processors) {
                 processor.processEvent(smartHome, event);
-            }        }
+            }
+        }
     }
 }
