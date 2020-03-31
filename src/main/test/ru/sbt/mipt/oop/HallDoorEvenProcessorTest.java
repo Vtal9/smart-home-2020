@@ -1,6 +1,10 @@
 package ru.sbt.mipt.oop;
 
 import org.junit.Test;
+import ru.sbt.mipt.oop.components.Light;
+import ru.sbt.mipt.oop.processors.DoorEventProcessor;
+import ru.sbt.mipt.oop.processors.HallDoorEvenProcessor;
+import ru.sbt.mipt.oop.processors.LightEventProcessor;
 
 import static org.junit.Assert.*;
 import static ru.sbt.mipt.oop.SensorEventType.*;

@@ -1,6 +1,8 @@
 package ru.sbt.mipt.oop;
 
 import org.junit.Test;
+import ru.sbt.mipt.oop.components.Door;
+import ru.sbt.mipt.oop.processors.DoorEventProcessor;
 
 import static org.junit.Assert.*;
 import static ru.sbt.mipt.oop.SensorEventType.DOOR_CLOSED;
