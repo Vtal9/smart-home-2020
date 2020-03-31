@@ -17,7 +17,6 @@ public class SmartHomeHandler {
         while (event != null) {
             System.out.println("Got event: " + event);
             for (EventProcessor processor : processors) {
-                System.out.println(processor);
                 processor.processEvent(smartHome, event);
             }
             event = eventCreator.getNextSensorEvent();
