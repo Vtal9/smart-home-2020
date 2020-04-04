@@ -1,6 +1,6 @@
-package ru.sbt.mipt.oop.states;
+package ru.sbt.mipt.oop.alarm.states;
 
-import ru.sbt.mipt.oop.Alarm;
+import ru.sbt.mipt.oop.alarm.Alarm;
 
 public class AlertState implements State {
 

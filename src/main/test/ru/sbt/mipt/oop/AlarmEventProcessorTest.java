@@ -1,6 +1,9 @@
 package ru.sbt.mipt.oop;
 
 import org.junit.Test;
+import ru.sbt.mipt.oop.alarm.Alarm;
+import ru.sbt.mipt.oop.processors.AlarmEventProcessor;
+import ru.sbt.mipt.oop.processors.EventProcessor;
 
 import java.util.Arrays;
 

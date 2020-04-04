@@ -1,6 +1,7 @@
 package ru.sbt.mipt.oop;
 
 import org.junit.Test;
+import ru.sbt.mipt.oop.components.Light;
 
 import static org.junit.Assert.*;
 

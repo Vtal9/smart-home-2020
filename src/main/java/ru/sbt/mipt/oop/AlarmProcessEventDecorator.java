@@ -1,5 +1,7 @@
 package ru.sbt.mipt.oop;
 
+import ru.sbt.mipt.oop.processors.EventProcessor;
+
 import java.util.List;
 
 import static ru.sbt.mipt.oop.SensorEventType.*;

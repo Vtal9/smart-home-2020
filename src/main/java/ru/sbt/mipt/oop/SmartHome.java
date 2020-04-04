@@ -1,5 +1,10 @@
 package ru.sbt.mipt.oop;
 
+import ru.sbt.mipt.oop.alarm.Alarm;
+import ru.sbt.mipt.oop.components.Action;
+import ru.sbt.mipt.oop.components.Actionable;
+import ru.sbt.mipt.oop.components.Room;
+
 import java.util.ArrayList;
 import java.util.Collection;
 

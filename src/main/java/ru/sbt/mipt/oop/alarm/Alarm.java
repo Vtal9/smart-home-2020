@@ -1,7 +1,9 @@
-package ru.sbt.mipt.oop;
+package ru.sbt.mipt.oop.alarm;
 
-import ru.sbt.mipt.oop.states.InactiveState;
-import ru.sbt.mipt.oop.states.State;
+import ru.sbt.mipt.oop.components.Action;
+import ru.sbt.mipt.oop.components.Actionable;
+import ru.sbt.mipt.oop.alarm.states.InactiveState;
+import ru.sbt.mipt.oop.alarm.states.State;
 
 public class Alarm implements Actionable {
 
@@ -13,7 +15,7 @@ public class Alarm implements Actionable {
         return this.code.equals(code);
     }
 
-    boolean isActive() {
+    public boolean isActive() {
         return !(state instanceof InactiveState);
     }
 

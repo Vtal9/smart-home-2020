@@ -1,6 +1,9 @@
 package ru.sbt.mipt.oop;
 
 import org.junit.Test;
+import ru.sbt.mipt.oop.components.Door;
+import ru.sbt.mipt.oop.components.Light;
+import ru.sbt.mipt.oop.components.Room;
 
 import java.util.Arrays;
 

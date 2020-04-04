@@ -1,9 +1,18 @@
-package ru.sbt.mipt.oop;
+package ru.sbt.mipt.oop.processors;
+
+import org.springframework.context.annotation.Bean;
+import ru.sbt.mipt.oop.components.Door;
+import ru.sbt.mipt.oop.SensorEvent;
+import ru.sbt.mipt.oop.SmartHome;
 
 import static ru.sbt.mipt.oop.SensorEventType.DOOR_CLOSED;
 import static ru.sbt.mipt.oop.SensorEventType.DOOR_OPEN;
 
 public class DoorEventProcessor implements EventProcessor {
+    @Bean
+    EventProcessor DoorEventProcessor() {
+        return new DoorEventProcessor();
+    }
 
     @Override
     public void processEvent(SmartHome smartHome, SensorEvent event) {
