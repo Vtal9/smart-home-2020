@@ -8,10 +8,9 @@ import ru.sbt.mipt.oop.SensorEventType;
 import ru.sbt.mipt.oop.SmartHome;
 import ru.sbt.mipt.oop.SmartHomeReader;
 import ru.sbt.mipt.oop.adaptors.EventProcessorAdapter;
+import ru.sbt.mipt.oop.alarm.Alarm;
 import ru.sbt.mipt.oop.processors.*;
 
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
@@ -25,40 +24,23 @@ public class SmartHomeConfiguration {
     }
 
     @Bean
-    EventProcessor doorEventProcessor(){
+    EventProcessor doorEventProcessor() {
         return new DoorEventProcessor();
     }
 
     @Bean
-    EventProcessor lightEventProcessor(){
+    EventProcessor lightEventProcessor() {
         return new LightEventProcessor();
     }
 
     @Bean
-    EventProcessor hallDoorProcessor(){
+    EventProcessor hallDoorProcessor() {
         return new HallDoorEvenProcessor();
     }
 
     @Bean
-    EventProcessor alarmEventProcessor(){
+    EventProcessor alarmEventProcessor() {
         return new AlarmEventProcessor();
-    }
-
-    @Bean
-    public EventProcessor processor(List<EventProcessor> processors) {
-        return new AlarmProcessEventDecorator(processors);
-    }
-
-    @Bean
-    EventProcessorAdapter eventProcessorAdapter(EventProcessor eventProcessor, SmartHome smartHome,Map<String, SensorEventType> typeMap){
-        return new EventProcessorAdapter(eventProcessor, smartHome, typeMap);
-    }
-
-    @Bean
-    public SensorEventsManager sensorEventsManager(EventProcessorAdapter adapter) {
-        SensorEventsManager sensorEventsManager = new SensorEventsManager();
-        sensorEventsManager.registerEventHandler(adapter);
-        return sensorEventsManager;
     }
 
     @Bean
@@ -71,6 +53,23 @@ public class SmartHomeConfiguration {
         );
     }
 
+    @Bean
+    EventProcessorAdapter eventProcessorAdapter(List<EventProcessor> processors, SmartHome smartHome) {
+        return new EventProcessorAdapter(new AlarmProcessEventDecorator(processors), smartHome, typeMap());
+    }
+
+    @Bean
+    public SensorEventsManager sensorEventsManager(EventProcessorAdapter adapter) {
+        SensorEventsManager sensorEventsManager = new SensorEventsManager();
+        sensorEventsManager.registerEventHandler(adapter);
+        return sensorEventsManager;
+    }
+
+
+    @Bean
+    Alarm alarm() {
+        return new Alarm();
+    }
 
 }
 

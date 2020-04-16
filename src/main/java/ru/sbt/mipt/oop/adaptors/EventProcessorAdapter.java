@@ -24,6 +24,9 @@ public class EventProcessorAdapter implements EventHandler {
     }
 
     private SensorEvent convertType(CCSensorEvent event) {
+        if (!typeMatch.containsKey(event.getEventType())) {
+            return null;
+        }
         return new SensorEvent(typeMatch.get(event.getEventType()), event.getObjectId());
     }
 
